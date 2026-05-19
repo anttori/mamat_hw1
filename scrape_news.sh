@@ -18,23 +18,23 @@ for article in $articles; do   # loop for each article
 	echo -n "$article" 	# print article link
 	
 	# check if arctile text contains at least one name
-	if [[ $(grep -oP "Netanyahu|Gvir|Lapid|Gantz" <<< "$data" | wc -l) -gt 0 ]]; then
+	if [[ $(grep -oP "Netanyahu|Gantz|Bennett|Peretz" <<< "$data" | wc -l) -gt 0 ]]; then
 		
 		# for each politician name in a article 
-		for name in Netanyahu Gvir Lapid Gantz; do
+		for name in Netanyahu Gantz Bennett Peretz; do
 
 			# name occurences count 
 			count=$(grep -o $name <<< "$data" | wc -l)
 		
 			# print name with occurence count or - if count is zero
-			echo -n ", $name, $( [[ $count -eq 0 ]] && echo "-" || echo "$count")"
+			echo -n ", $name, $count"
 		done
 		
-		echo " "
+		echo ""
 		
 	else
 		
-		echo ", - "	# print - if there are no names in this article
+		echo ", -"	# print - if there are no names in this article
 		
 	fi
 		
