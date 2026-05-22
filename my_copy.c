@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 }
 
 void error() {
-	fprintf(stderr, "Error occurred");
+	fprintf(stderr, "Error occurred\n");
 	exit(1);
 }
 
