@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /*returns 1 if line matches somewhere in line the regex
 0 otherwise, uses matchhere*/
@@ -14,10 +13,10 @@ int matchhere(char *text, char *regexp);
 0 otherwise, */
 int matchstar(char *text, char c, char *regexp);
 
+#define BUFSIZE 256
 
 // CONTAINS BUG
 /*
-#define BUFSIZE 256
 int main(int argc, char *argv[])
 {
     FILE *f = stdin;
@@ -52,36 +51,33 @@ int main(int argc, char *argv[])
 */
 
 // GEMINI BUG FIX
-#define BUFSIZE 256
-
 int main(int argc, char *argv[]) {
     FILE *f = stdin;
     char buffer[BUFSIZE];
 
-    if (strcmp(argv[1], "-") != 0)
-    {
+    if (!(argv[1][0] == '-' && argv[1][1] == '\0')) {
         f = fopen(argv[1], "r");
+
+        if (f == NULL) {
+            fprintf(stderr, "Error occurred\n");
+            return 1;
+        }
     }
 
-    while (fgets(buffer, BUFSIZE, f) != NULL)
-    {
-        for (int i = 0; i < BUFSIZE && buffer[i] != '\0'; i++)
-        {
-            if (buffer[i] == '\n')
-            {
+    while (fgets(buffer, BUFSIZE, f) != NULL) {
+        for (int i = 0; i < BUFSIZE && buffer[i] != '\0'; i++) {
+            if (buffer[i] == '\n') {
                 buffer[i] = '\0';
                 break;
             }
         }
 
-        if (match(buffer, argv[2]))
-        {
+        if (match(buffer, argv[2])) {
             printf("%s\n", buffer);
         }
     }
 
-    if (f != stdin)
-    {
+    if (f != stdin) {
         fclose(f);
     }
 
@@ -94,7 +90,7 @@ int match(char *text, char *regexp) {
 
     char *temp_line_pointer= text;
 
-    // CONTAINS BUG - FIXED BY GEMINI
+    // CONTAINS BUG
     /*
     while(temp_line_pointer[0]!='\0'){
 
