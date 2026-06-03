@@ -43,7 +43,7 @@ struct stack* stack_create (
     return new_stack;
 }
 
-int stack_destroy(struct stack* stack) {
+void stack_destroy(struct stack* stack) {
     if (stack) {
         for (int i = 0; i <= stack->size; i++) {    // destroy each element with user provided function
             stack->destroy_func(*(stack->elements + i));
@@ -51,10 +51,8 @@ int stack_destroy(struct stack* stack) {
         free(stack->elements);
         free(stack);
 
-        return 0;   // success
+        return ;   // success
     }
-
-    return -1;  // failure
 }
 
 int stack_push(struct stack* stack, elem_t e) {

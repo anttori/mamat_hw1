@@ -21,7 +21,7 @@ struct stack* stack_create (
         destroy_t destroy_func,
         print_t print_func);
 
-int stack_destroy(struct stack* stack);
+void stack_destroy(struct stack* stack);
 int stack_push(struct stack* stack, elem_t e);
 void stack_pop(struct stack* stack);
 elem_t stack_peek(struct stack* stack);
