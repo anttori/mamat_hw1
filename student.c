@@ -6,7 +6,7 @@
 
 typedef struct student *student_t;
 
-elem_t student_clone(elem_t e) {
+void* student_clone(void* e) {
     if (!e) return NULL;
 
     student_t student = e;
@@ -29,7 +29,7 @@ elem_t student_clone(elem_t e) {
     return new_student;
 }
 
-void student_destroy(elem_t e) {
+void student_destroy(void* e) {
     if (e) {
         student_t student = e;
         free(student->name);
@@ -37,7 +37,7 @@ void student_destroy(elem_t e) {
     }
 }
 
-void student_print(elem_t e) {
+void student_print(void* e) {
     if (e) {
         student_t student = e;
         printf("student name: %s, age: %d, id: %d.\n", student->name, student->age, student->id);
