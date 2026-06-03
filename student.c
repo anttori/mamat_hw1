@@ -6,17 +6,22 @@
 
 typedef struct student *student_t;
 
+/*
+Input: struct student object. Output: struct student object
+Creates new student instance and copies provided element into it
+*/
 void* student_clone(void* e) {
     if (!e) return NULL;
 
-    student_t student = e;
+    student_t student = e;	// cast void to student
 
+	// allocate memory for a new student instance
     student_t new_student = malloc(sizeof(struct student));
-    if (!new_student) return NULL;
+    if (!new_student) return NULL;	// malloc failure
 
     // allocate new memory for a name line in order to avoid pointing to the same value
     char* name = malloc((strlen(student->name) + 1) * sizeof(char));
-    if (!name) {    // failure
+    if (!name) {    // malloc failure
         free(new_student);  // free memory allocated for new student in case of failure
         return NULL;
     }
@@ -29,17 +34,26 @@ void* student_clone(void* e) {
     return new_student;
 }
 
+/*
+Input: struct student object. No output
+Frees memory for all student fields including name line
+*/
 void student_destroy(void* e) {
     if (e) {
-        student_t student = e;
+        student_t student = e;	// cast void to student
+        
         free(student->name);
         free(student);
     }
 }
 
+/*
+Input: struct student object. No output
+Prints provided student fields in a declared format (declared in hw3 instructions)
+*/
 void student_print(void* e) {
     if (e) {
-        student_t student = e;
+        student_t student = e;	// cast void to student
         printf("student name: %s, age: %d, id: %d.\n", student->name, student->age, student->id);
     }
 }
